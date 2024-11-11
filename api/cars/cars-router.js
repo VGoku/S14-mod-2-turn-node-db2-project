@@ -14,8 +14,14 @@ router.get("/", async (req, res, next) => {
 })
 
 router.get("/:id", async (req, res, next) => {
-    res.json(`getting car with id ${req.params.id}`)
-    next()
+    // res.json(`getting car with id ${req.params.id}`)
+    // next()
+    try {
+        const car = await Car.getById(req.params.id)
+        res.json(car)
+    } catch (err) {
+        next(err)
+    }
 })
 
 router.post("/", async (req, res, next) => {
